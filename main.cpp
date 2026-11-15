@@ -44,6 +44,15 @@ void insertKey(int key, string name) {
     if (table[index] == nullptr) {
         table[index] = newNode;
     }
+    else {
+        Node* temp = table[index];
+
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+
+        temp->next = newNode;
+    }
 }
 void generateDataset() {
     cout << "\nPersonalized Mango Dataset:\n";
@@ -71,6 +80,19 @@ int main() {
     cout << "Table Size: " << M << endl;
     generateDataset();
     insertKey(33, NAMES[0]);
+    insertKey(59, NAMES[2]);
+    insertKey(72, NAMES[3]);
+
+    cout << "\nTesting Separate Chaining:\n";
+
+    Node* temp = table[8];
+
+    while (temp != nullptr) {
+        cout << temp->key << " (" << temp->name << ") -> ";
+        temp = temp->next;
+    }
+
+cout << "NULL" << endl;
 
     cout << "\nTesting Insertion:\n";
     cout << "Inserted Key: " << table[8]->key << endl;
