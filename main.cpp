@@ -39,13 +39,24 @@ int midSquare(int key);
 void insertKey(int key, string name) {
     int index = midSquare(key);
 
+    Node* temp = table[index];
+
+    // Check for duplicate key
+    while (temp != nullptr) {
+        if (temp->key == key) {
+            cout << "Duplicate key " << key << " rejected!" << endl;
+            return;
+        }
+        temp = temp->next;
+    }
+
     Node* newNode = new Node(key, name);
 
     if (table[index] == nullptr) {
         table[index] = newNode;
     }
     else {
-        Node* temp = table[index];
+        temp = table[index];
 
         while (temp->next != nullptr) {
             temp = temp->next;
@@ -63,6 +74,31 @@ void generateDataset() {
         cout << values[i] << " - " << NAMES[i] << endl;
     }
 }
+void displayTable() {
+    cout << "\nFinal Hash Table:\n";
+
+    for (int i = 0; i < M; i++) {
+        cout << "[" << i << "] ";
+
+        Node* temp = table[i];
+
+        if (temp == nullptr) {
+            cout << "Empty";
+        }
+
+        while (temp != nullptr) {
+            cout << temp->key << "(" << temp->name << ")";
+
+            if (temp->next != nullptr) {
+                cout << " -> ";
+            }
+
+            temp = temp->next;
+        }
+
+        cout << endl;
+    }
+}
 int midSquare(int key) {
     int square = key * key;
     int middle = (square / 10) % 100;
@@ -71,7 +107,7 @@ int midSquare(int key) {
 }
 
 int main() {
-    for (int i = 0; i < M; i++) {
+  for (int i = 0; i < M; i++) {
     table[i] = nullptr;
 }
     cout << "Mango Variety Hash Table" << endl;
@@ -79,11 +115,13 @@ int main() {
     cout << "Seed: " << SEED << endl;
     cout << "Table Size: " << M << endl;
     generateDataset();
-    insertKey(33, NAMES[0]);
-    insertKey(59, NAMES[2]);
-    insertKey(72, NAMES[3]);
+    for (int i = 0; i < N; i++) {
+    insertKey(values[i], NAMES[i]);
+    }
 
     cout << "\nTesting Separate Chaining:\n";
+
+    cout << "Bucket 8: ";
 
     Node* temp = table[8];
 
@@ -92,7 +130,15 @@ int main() {
         temp = temp->next;
     }
 
-cout << "NULL" << endl;
+    cout << "NULL" << endl;
+
+    
+    displayTable();
+    cout << "\nTesting Duplicate Insertion:\n";
+
+    insertKey(33, "Alphonso");
+
+    displayTable();
 
     cout << "\nTesting Insertion:\n";
     cout << "Inserted Key: " << table[8]->key << endl;
