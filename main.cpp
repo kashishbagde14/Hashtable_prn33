@@ -23,6 +23,28 @@ const string NAMES[N] = {
     "Malgova", "Ratna", "Pairi", "Rajapuri", "Sindhura"
 };
 int values[N];
+struct Node {
+    int key;
+    string name;
+    Node* next;
+
+    Node(int k, string n) {
+        key = k;
+        name = n;
+        next = nullptr;
+    }
+};
+Node* table[M];
+int midSquare(int key);
+void insertKey(int key, string name) {
+    int index = midSquare(key);
+
+    Node* newNode = new Node(key, name);
+
+    if (table[index] == nullptr) {
+        table[index] = newNode;
+    }
+}
 void generateDataset() {
     cout << "\nPersonalized Mango Dataset:\n";
 
@@ -40,11 +62,19 @@ int midSquare(int key) {
 }
 
 int main() {
+    for (int i = 0; i < M; i++) {
+    table[i] = nullptr;
+}
     cout << "Mango Variety Hash Table" << endl;
     cout << "PRN: 202501100033" << endl;
     cout << "Seed: " << SEED << endl;
     cout << "Table Size: " << M << endl;
     generateDataset();
+    insertKey(33, NAMES[0]);
+
+    cout << "\nTesting Insertion:\n";
+    cout << "Inserted Key: " << table[8]->key << endl;
+    cout << "Mango Name: " << table[8]->name << endl;
     cout << "\nTesting Mid-Square Hashing:\n";
     cout << "Key 33 -> Hash Index: " << midSquare(33) << endl;
 
