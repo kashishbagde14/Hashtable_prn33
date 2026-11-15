@@ -32,6 +32,12 @@ void generateDataset() {
         cout << values[i] << " - " << NAMES[i] << endl;
     }
 }
+int midSquare(int key) {
+    int square = key * key;
+    int middle = (square / 10) % 100;
+
+    return middle % M;
+}
 
 int main() {
     cout << "Mango Variety Hash Table" << endl;
@@ -39,6 +45,8 @@ int main() {
     cout << "Seed: " << SEED << endl;
     cout << "Table Size: " << M << endl;
     generateDataset();
+    cout << "\nTesting Mid-Square Hashing:\n";
+    cout << "Key 33 -> Hash Index: " << midSquare(33) << endl;
 
     return 0;
 }
