@@ -22,12 +22,23 @@ const string NAMES[N] = {
     "Amrapali", "Raspuri", "Badami", "Fazli", "Safeda",
     "Malgova", "Ratna", "Pairi", "Rajapuri", "Sindhura"
 };
+int values[N];
+void generateDataset() {
+    cout << "\nPersonalized Mango Dataset:\n";
+
+    for (int i = 0; i < N; i++) {
+        values[i] = (SEED + 13 * i) % 100;
+
+        cout << values[i] << " - " << NAMES[i] << endl;
+    }
+}
 
 int main() {
     cout << "Mango Variety Hash Table" << endl;
     cout << "PRN: 202501100033" << endl;
     cout << "Seed: " << SEED << endl;
     cout << "Table Size: " << M << endl;
+    generateDataset();
 
     return 0;
 }
